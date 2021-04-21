@@ -32,7 +32,6 @@ public class Exercicio37a {
             }
         }
 
-
         System.out.printf("O fatorial de %d é: %d", numOriginal, fat);
     }
 }
