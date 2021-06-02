@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.security.SecureRandom;
 
+/**
+ * @author augustobellinaso
+ */
 public class DrawTarget extends JPanel {
 
     private static final SecureRandom secureRandom = new SecureRandom();

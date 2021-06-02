@@ -2,6 +2,9 @@ package capitulo6.exercicios.exercicio8;
 
 import java.util.Scanner;
 
+/**
+ * @author augustobellinaso
+ */
 public class TaxaEstacionamento {
 
     public static void main(String[] args) {
