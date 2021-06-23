@@ -1,4 +1,4 @@
-package capitulo6.exercicios.exercicio37;
+package capitulo6.exercicios.exercicio38;
 
 import java.security.SecureRandom;
 import java.util.Scanner;
@@ -6,11 +6,9 @@ import java.util.Scanner;
 /**
  * @author augustobellinaso
  */
-public class CAI3 {
-
+public class CAI4 {
     public static SecureRandom random = new SecureRandom();
     public static Scanner sc = new Scanner(System.in);
-    public static final int NUMERO_MAXIMO = 10;
     public static final int PERGUNTAS = 10;
 
     public static void main(String[] args) {
@@ -19,12 +17,25 @@ public class CAI3 {
         boolean continuar = true;
         int corretas = 0;
         int qtdeRespostas = 0;
+        int dificuldade;
 
         do {
 
             while (qtdeRespostas <= PERGUNTAS) {
-                int num1 = random.nextInt(NUMERO_MAXIMO);
-                int num2 = random.nextInt(NUMERO_MAXIMO);
+
+                System.out.print("Níveis de dificuldade: \n" +
+                        "1 - números de um dígito \n" +
+                        "2 - números de dois dígitos \n" +
+                        "3 - números de três dígitos \n" +
+                        "Dificuldade da próxima pergunta: ");
+                dificuldade = sc.nextInt();
+                while(!validarDificuldade(dificuldade)) {
+                    System.out.print("Dificuldade inválida. Digite novamente: ");
+                    dificuldade = sc.nextInt();
+                }
+
+                int num1 = gerarNumero(dificuldade);
+                int num2 = gerarNumero(dificuldade);
 
 
                 gerarPergunta(num1, num2);
@@ -45,6 +56,7 @@ public class CAI3 {
                 if (validarResposta(num1, num2, resposta)) {
                     int opcaoMensagem = random.nextInt(4);
                     mensagensSucesso(opcaoMensagem);
+                    System.out.println();
                     corretas++;
                 }
 
@@ -55,12 +67,20 @@ public class CAI3 {
             }
 
             if (corretas <= 7) {
+                System.out.println();
+                System.out.println("==================================");
                 System.out.println("Peça ajuda extra ao seu professor!");
+                System.out.println("==================================");
+                System.out.println();
             } else {
+                System.out.println();
+                System.out.println("=============================================================");
                 System.out.println("Parabéns! Você está pronto para avançar para o próximo nível!");
+                System.out.println("=============================================================");
+                System.out.println();
             }
 
-            System.out.printf("Digite 0 se deseja sair ou 1 para passar ao próximo aluno: ");
+            System.out.print("Digite 0 se deseja sair ou 1 para passar ao próximo aluno: ");
             if (sc.nextInt() == 0) {
                 continuar = false;
             }
@@ -69,12 +89,33 @@ public class CAI3 {
         } while (continuar);
     }
 
+    public static int gerarNumero(int dificuldade) {
+        int num = 0;
+
+        switch (dificuldade) {
+            case 1:
+                num = 1 + random.nextInt(10);
+                break;
+            case 2:
+                num = 10 + random.nextInt(90);
+                break;
+            case 3:
+                num = 100 + random.nextInt(900);
+                break;
+        }
+        return num;
+    }
+
     public static void gerarPergunta(int num1, int num2) {
         System.out.printf("Quanto é %d vezes %d? ", num1, num2);
     }
 
     public static boolean validarResposta(int num1, int num2, int resp) {
         return resp == num1 * num2;
+    }
+
+    public static boolean validarDificuldade(int dificuldade) {
+        return dificuldade >= 1 && dificuldade <= 3;
     }
 
     public static void mensagensSucesso(int opcao) {
